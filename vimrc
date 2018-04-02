@@ -1,11 +1,4 @@
 scriptencoding utf-8
-" ============================================================================
-" Author: TaoBeier
-" Blog: http://moelove.info
-" Version: v1.1.0
-" Update Time: 2016-09-25
-
-" ============================================================================
 " Vundle initialization
 " Avoid modify this section, unless you are very sure of what you are doing
 
@@ -184,8 +177,9 @@ set backspace=indent,eol,start
 
 " auto open or close NERDTree
 autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" 只剩 NERDTree时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " always show status bar
 set laststatus=2
 
@@ -216,14 +210,14 @@ map <C-S-Left> :tabp<CR>
 imap <C-S-Left> <ESC>:tabp<CR>
 
 " navigate windows with meta+arrows
-map <M-Right> <c-w>l
-map <M-Left> <c-w>h
-map <M-Up> <c-w>k
-map <M-Down> <c-w>j
-imap <M-Right> <ESC><c-w>l
-imap <M-Left> <ESC><c-w>h
-imap <M-Up> <ESC><c-w>k
-imap <M-Down> <ESC><c-w>j
+"map <M-Right> <c-w>l
+"map <M-Left> <c-w>h
+"map <M-Up> <c-w>k
+"imap <M-Down> <c-w>j
+"imap <M-Right> <ESC><c-w>l
+"imap <M-Left> <ESC><c-w>h
+"imap <M-Up> <ESC><c-w>k
+"imap <M-Down> <ESC><c-w>j
 
 " old autocomplete keyboard shortcut
 imap <C-J> <C-X><C-O>
@@ -305,6 +299,7 @@ let g:tagbar_autofocus = 1
 " toggle nerdtree display
 map <F3> :NERDTreeToggle<CR>
 " open nerdtree with the current file selected
+nmap  <right> <CR>
 nmap ,t :NERDTreeFind<CR>
 " don;t show these file types
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
@@ -451,10 +446,10 @@ let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 " DragVisuals ------------------------------
 
 " mappings to move blocks in 4 directions
-vmap <expr> <S-M-LEFT> DVB_Drag('left')
-vmap <expr> <S-M-RIGHT> DVB_Drag('right')
-vmap <expr> <S-M-DOWN> DVB_Drag('down')
-vmap <expr> <S-M-UP> DVB_Drag('up')
+"vmap <expr> <S-M-LEFT> DVB_Drag('left')
+"vmap <expr> <S-M-RIGHT> DVB_Drag('right')
+"vmap <expr> <S-M-DOWN> DVB_Drag('down')
+"vmap <expr> <S-M-UP> DVB_Drag('up')
 " mapping to duplicate block
 vmap <expr> D DVB_Duplicate()
 
@@ -554,3 +549,5 @@ let g:vim_markdown_frontmatter=1
 " and when you open this, you can manually trigger preview
 " via the command :InstantMarkdownPreview
 let g:instant_markdown_autostart = 0
+let g:go_version_warning = 0
+
